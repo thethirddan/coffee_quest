@@ -17,16 +17,23 @@ var explore = function(floorSquare, dungeon){
 	//not inbounds? log it?
 };
 
-var createDungeon = function(dungeonId, dimX, dimY) {
+var createDungeon = function(dimX, dimY) {
 	// create empty dungeon array dungeon[dungeonId][dimX][dimY]
+	dungeon = [[]];
 
+	for (x = 0; x < dimX; x++) { 
+    	for (y = 0; y < dimY; y++) { 
+    		dungeon[x][y].vis = 'hidden';
+    		dungeon[x][y].enc = '';
+		}
+	}
 	
 	// needs starting position -> used to generate can-click spaces
-	createDungeonStart(dungeon);
+	dungeon = createDungeonStart(dungeon, dimX, dimY);
 
-	setDungeonVisibility(dungeon);
+	dungeon = setDungeonVisibility(dungeon);
 
-	//return dungeon;
+	return dungeon;
 };
 
 var discoverEncounter = function(floorSquare, dungeon) {
@@ -40,29 +47,37 @@ var discoverEncounter = function(floorSquare, dungeon) {
 	return e;
 };
 
-var createDungeonStart = function(dungeon) {
+var createDungeonStart = function(dungeon, dimX, dimY) {
 	//pick a random square and make it blank
+	var randX = Math.floor((Math.random() * dimX) + 1); 
+	var randY = Math.floor((Math.random() * dimY) + 1);
+	var randomFloorSquare = dungeon[randX][randY];
 
-	//set surrounding squares to 
+	renderSquare(randomFloorSquare, 'clear');
+
+	return dungeon;
 };
 
 var setDungeonVisibility = function(dungeon){
-	var visibility; //
+	var vis; //clear, hidden or clickable
+	var squareVis;
 	//loop through all squares
-		//check to see if:
-			//it's been clicked
-				visibility = 'clear';
-			//else
-				if (squareNextToVisible(floorSquare, dungeon)) {
-					//it hasn't && can be.
-					visibility = 'clickable';
-				} else {
-					//it hasn't && can't be clicked
-					visibility = 'hidden';
-				}
+	for (var x = 0; x < dungeon.length; x++) {
+		for (var y = 0; y < dungeon[x].length; y++) {
+
+			squareVis = dungeon[x][y].vis;
 			
-			
-			renderSquare(floorSquare, visibility);
+			if (squareVis != 'clear' && squareNextToVisible(floorSquare, dungeon)) {
+				vis = 'clickable';
+			} else {
+				vis = squareVis;
+			}
+
+			renderSquare(floorSquare, vis);
+		}
+	}
+
+	return dungeon;
 };
 
 var renderSquare = function(floorSquare, visibility){
