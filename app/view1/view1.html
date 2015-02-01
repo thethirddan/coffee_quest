@@ -3,8 +3,9 @@
 </div>
 
 <script>
-	var dungeonDiv = getElementById("dungeon");
+ 	$(document).ready(function() {
+		var dungeonDiv = document.getElementById("dungeon");
 
-	dungeonDiv.innerHTML = createDungeon(0,6,6);
-
+		dungeonDiv.innerHTML = createDungeon(6,6);
+	});
 </script>
