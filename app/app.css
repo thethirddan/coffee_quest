@@ -28,3 +28,16 @@
   content: "";
   padding: 0;
 }
+
+.clickableSquare {
+  background-color: #999;
+  cursor: pointer;
+}
+
+.clearSquare {
+  background-color: #eee;
+}
+
+.darkSquare {
+  background-color: #222;
+}
