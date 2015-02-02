@@ -5,7 +5,13 @@
 <script>
  	$(document).ready(function() {
 		var dungeonDiv = document.getElementById("dungeon");
+		var dungeon = createDungeon(6,6);
+		dungeonDiv.innerHTML = renderDungeonHTML(dungeon);
 
-		dungeonDiv.innerHTML = createDungeon(6,6);
+		$('.clickableSquare').bind( "click", function() {
+			dungeon = explore(this.id, dungeon);
+			dungeonDiv.innerHTML = renderDungeonHTML(dungeon);
+		});
+
 	});
 </script>

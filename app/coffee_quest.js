@@ -10,26 +10,48 @@ function createArray(length) {
     return arr;
 }
 
-var explore = function(floorSquare, dungeon){
+var explore = function(sqId, dungeon){
+	console.log(dungeon);
+	//sqId is equal to x-y ex (2-5)
+	var coords;
+	var x;
+	var y;
+	
+
+	coords = sqId.split("-");
+	x = coords[0];
+	y = coords[1];
 
 	//check if square is able to be clicked?
-	if (inBounds(floorSquare, dungeon)){
+	if (inBounds(x, y, dungeon) && dungeon[x][y].vis == "clickableSquare"){
+		dungeon[x][y];
+
 		//determine what's in the square.
-		discoverEncounter(floorSquare, dungeon);
-		
+		//discoverEncounter(floorSquare, dungeon);
+			
 		//TODO: call square encounter
 
 		//change square data (visibility)
-		setSquareData(floorSquare, 'clearSquare', '');
+		dungeon[x][y] = setSquareData(dungeon[x][y], 'clearSquare', '');
 
 		//render dungeon
 		//TODO: should we do this, or just change the 4 squares around it?
-		setDungeonVisibility(dungeon);
+
+		dungeon = setDungeonVisibility(dungeon);
 	}
 
-	//not inbounds? log it?
+	return dungeon;
 };
+var inBounds = function(x, y, dungeon){
+	var dungeonX = dungeon.length;
+	var dungeonY = dungeon[0].length;
 
+	if ( (x >= 0) && (x <= dungeonX) && (y >= 0) && (y <= dungeonY) ){
+		return true;
+	} else {
+		return false;
+	}
+}
 var createDungeon = function(dimX, dimY) {
 	// create empty dungeon array dungeon[dimX][dimY]
 	var dungeon = createArray(1, 1);
@@ -49,13 +71,13 @@ var createDungeon = function(dimX, dimY) {
 	console.log(dungeon);
 
 	// needs starting position -> used to generate can-click spaces
-	dungeon = createDungeonStart(dungeon, dimX, dimY);
+	dungeon = createDungeonStart(dungeon);
 
 	dungeon = setDungeonVisibility(dungeon);
 
-	dungeonHTML = renderDungeonHTML(dungeon);
+	//dungeonHTML = renderDungeonHTML(dungeon);
 
-	return dungeonHTML;
+	return dungeon;
 };
 
 var discoverEncounter = function(floorSquare, dungeon) {
@@ -69,10 +91,14 @@ var discoverEncounter = function(floorSquare, dungeon) {
 	return e;
 };
 
-var createDungeonStart = function(dungeon, dimX, dimY) {
+var createDungeonStart = function(dungeon) {
+
+	var xLen = dungeon.length - 1;
+	var yLen = dungeon[0].length - 1;
 	//pick a random square and make it blank
-	var randX = Math.floor((Math.random() * dimX)); 
-	var randY = Math.floor((Math.random() * dimY));
+
+	var randX = Math.floor((Math.random() * xLen)); 
+	var randY = Math.floor((Math.random() * yLen));
 	var randomFloorSquare = dungeon[randX][randY];
 
 	dungeon[randX][randY] = setSquareData(randomFloorSquare, 'clearSquare','');
@@ -84,8 +110,8 @@ var setDungeonVisibility = function(dungeon){
 	var vis; //clearSquare, darkSquare or clickableSquare
 	var squareVis;
 	//loop through all squares
-	for (var x = 0; x < dungeon.length; x++) {
-		for (var y = 0; y < dungeon[x].length; y++) {
+	for (var y = 0; y < dungeon.length; y++) {
+		for (var x = 0; x < dungeon[y].length; x++) {
 
 			squareVis = dungeon[x][y].vis;
 			
@@ -118,9 +144,9 @@ var renderDungeonHTML = function(dungeon){
 
 	var dungeonHTML = "<div class='row'>";
 
-	for (var x = 0; x < dungeon.length; x++) {
-		for (var y = 0; y < dungeon[x].length; y++) {
-			dungeonHTML += "<div class='col-xs-2 "+ dungeon[x][y].vis +"'>" + dungeon[x][y].vis + "</div>";
+	for (var y = 0; y < dungeon.length; y++) {
+		for (var x = 0; x < dungeon[y].length; x++) {
+			dungeonHTML += "<div id='" + x + "-" + y + "' class='col-xs-2 "+ dungeon[x][y].vis +"'>" + dungeon[x][y].vis + "</div>";
 		}
 		dungeonHTML += "</div><div class='row'>";
 	}
@@ -149,6 +175,7 @@ var squareNextToVisible = function(dungeon, floorSquareX, floorSquareY){
 	var sq3vis;
 	var sq4vis;
 
+	//Check all 4 squares around the current square. but first make sure they exist.
 	if (floorSquareX > 0) {
 		sq1vis = dungeon[floorSquareX-1][floorSquareY].vis;
 		if (diffSquares(sq0vis, sq1vis)){
