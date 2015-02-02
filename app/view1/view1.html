@@ -3,15 +3,17 @@
 </div>
 
 <script>
+	var exploreSquare;
+	
  	$(document).ready(function() {
 		var dungeonDiv = document.getElementById("dungeon");
 		var dungeon = createDungeon(6,6);
 		dungeonDiv.innerHTML = renderDungeonHTML(dungeon);
 
-		$('.clickableSquare').bind( "click", function() {
-			dungeon = explore(this.id, dungeon);
+		exploreSquare = function(sqId) {
+			dungeon = explore(sqId);
 			dungeonDiv.innerHTML = renderDungeonHTML(dungeon);
-		});
+		};
 
 	});
 </script>

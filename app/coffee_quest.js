@@ -1,3 +1,5 @@
+var dungeon;
+
 function createArray(length) {
 		// input format: '6,6'
 		// first arg: array.length, second arg: array[x].length
@@ -12,15 +14,17 @@ function createArray(length) {
     return arr;
 }
 
-var explore = function(sqId, dungeon){
+var explore = function(sqId){
 	console.log(dungeon);
+	console.log(sqId);
+
 	//sqId is equal to x-y ex (2-5)
 	var coords;
 	var x;
 	var y;
 	
 
-	coords = sqId.split("-");
+	coords = sqId.split("_");
 	x = coords[0];
 	y = coords[1];
 
@@ -58,7 +62,7 @@ var inBounds = function(x, y, dungeon){
 
 var createDungeon = function(dimX, dimY) {
 	// create and initialize empty dungeon array dungeon[dimX][dimY]
-	var dungeon = createArray(1, 1);
+	dungeon = createArray(1, 1);
 
 	for (x = 0; x < dimX; x++) { 
 		dungeon[x] = [];
@@ -147,12 +151,13 @@ var renderDungeonHTML = function(dungeon){
 
 	for (var y = 0; y < dungeon.length; y++) {
 		for (var x = 0; x < dungeon[y].length; x++) {
-			dungeonHTML += "<div id='" + x + "-" + y + "' class='col-xs-2 "+ dungeon[x][y].vis +"'>" + dungeon[x][y].vis + "</div>";
+			dungeonHTML += "<div id='" + x + "_" + y + "' class='col-xs-2 "+ dungeon[x][y].vis +"' onClick='exploreSquare(\"" + x + "_" + y + "\")'>" + dungeon[x][y].vis + "</div>";
 		}
 		dungeonHTML += "</div><div class='row'>";
 	}
-	dungeonHTML += "</div>";
 
+	dungeonHTML += "</div>";
+	
 	return dungeonHTML;
 };
 
