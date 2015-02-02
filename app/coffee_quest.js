@@ -1,3 +1,4 @@
+//TODO: move this global Var to local storage at some point.
 var dungeon;
 
 function createArray(length) {
