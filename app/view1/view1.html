@@ -7,12 +7,13 @@
 	
  	$(document).ready(function() {
 		var dungeonDiv = document.getElementById("dungeon");
-		var dungeon = createDungeon(6,6);
-		dungeonDiv.innerHTML = renderDungeonHTML(dungeon);
+		var dungeon = Dungeon('first',6,6);
+
+		dungeonDiv.innerHTML = dungeon.HTML;
 
 		exploreSquare = function(sqId) {
-			dungeon = explore(sqId);
-			dungeonDiv.innerHTML = renderDungeonHTML(dungeon);
+			dungeon.explore(sqId);
+			dungeonDiv.innerHTML = dungeon.HTML;
 		};
 
 	});
