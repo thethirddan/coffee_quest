@@ -4,7 +4,7 @@ var Dungeon = function (name, sizeX, sizeY) {
 	this.name = name;
 	this.sizeX = sizeX;
 	this.sizeY = sizeY;
-	this.HTML;
+	this.HTML = '';
 
 	this.dungeon = dungeon = [];
 
@@ -58,7 +58,7 @@ var Dungeon = function (name, sizeX, sizeY) {
 		}
 
 		return;
-	}
+	};
 
 	
 	//PRIVATE FUNCTIONS...
@@ -119,28 +119,28 @@ var Dungeon = function (name, sizeX, sizeY) {
 		if (floorSquareX > 0) {
 			sq1vis = dungeon[floorSquareX-1][floorSquareY].vis;
 			if (diffSquares(sq0vis, sq1vis)){
-				return true
+				return true;
 			}
 		}
 
 		if (floorSquareX < xLen) {
 			sq2vis = dungeon[floorSquareX+1][floorSquareY].vis;
 			if (diffSquares(sq0vis, sq2vis)){
-				return true
+				return true;
 			}
 		}
 
 		if (floorSquareY > 0) {
 			sq3vis = dungeon[floorSquareX][floorSquareY-1].vis;
 			if (diffSquares(sq0vis, sq3vis)){
-				return true
+				return true;
 			}
 		}
 
 		if (floorSquareY < yLen) {
 			sq4vis = dungeon[floorSquareX][floorSquareY+1].vis;
 			if (diffSquares(sq0vis, sq4vis)){
-				return true
+				return true;
 			}
 		}
 		return false;
