@@ -29,6 +29,11 @@
   padding: 0;
 }
 
+.dSquare{
+  width: 100px;
+  height: 100px;
+
+}
 .clickableSquare {
   background-color: #999;
   cursor: pointer;

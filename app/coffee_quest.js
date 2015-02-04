@@ -51,8 +51,6 @@ var Dungeon = function (name, sizeX, sizeY) {
 			setSquareData(dungeon[x][y], 'clearSquare', '');
 
 			//render dungeon
-			//TODO: should we do this, or just change the 4 squares around it?
-
 			setDungeonVisibility();
 			renderDungeonHTML();
 		}
@@ -161,7 +159,7 @@ var Dungeon = function (name, sizeX, sizeY) {
 
 		for (var y = 0; y < dungeon.length; y++) {
 			for (var x = 0; x < dungeon[y].length; x++) {
-				HTML += "<div id='" + x + "_" + y + "' class='col-xs-2 "+ dungeon[x][y].vis +"' onClick='exploreSquare(\"" + x + "_" + y + "\")'>" + dungeon[x][y].vis + "</div>";
+				HTML += "<div id='" + x + "_" + y + "' class='col-xs-2 dSquare "+ dungeon[x][y].vis +"' onClick='exploreSquare(\"" + x + "_" + y + "\")'>&nbsp;</div>";
 			}
 			HTML += "</div><div class='row'>";
 		}
