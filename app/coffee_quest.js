@@ -159,7 +159,7 @@ var Dungeon = function (name, sizeX, sizeY) {
 
 		for (var y = 0; y < dungeon.length; y++) {
 			for (var x = 0; x < dungeon[y].length; x++) {
-				HTML += "<div id='" + x + "_" + y + "' class='col-xs-2 dSquare "+ dungeon[x][y].vis +"' onClick='exploreSquare(\"" + x + "_" + y + "\")'>&nbsp;</div>";
+				HTML += "<div id='" + x + "_" + y + "' class='col-xs-2 dSquare "+ dungeon[x][y].vis +"'>&nbsp;</div>";
 			}
 			HTML += "</div><div class='row'>";
 		}

@@ -11,10 +11,16 @@
 
 		dungeonDiv.innerHTML = dungeon.HTML;
 
-		exploreSquare = function(sqId) {
-			dungeon.explore(sqId);
-			dungeonDiv.innerHTML = dungeon.HTML;
-		};
+		//exploreSquare = function(sqId) {
+		//	dungeon.explore(sqId);
+		//	dungeonDiv.innerHTML = dungeon.HTML;
+		//};
 
+		$("#dungeon").on("click", ".clickableSquare", function(e){
+
+			dungeon.explore(this.id);
+			dungeonDiv.innerHTML = dungeon.HTML;
+
+		});
 	});
 </script>
